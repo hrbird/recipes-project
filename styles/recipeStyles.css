@@ -1,18 +1,40 @@
 
 body {
 	font-family: "Courier New", "Monaco", monospace;
-}
-
-img.img_recipe {
 	
-	max-height: 500px;
-	width: auto;
-	padding-right: 25px;
-	padding-top: 25px;
+	margin: 0;
+	min-height: 100vh;
+	
+	/* Make this a vertical flex-box container */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Vertically space contents apart */
+	align-items: space-between; /* Horizontally space contents apart */
 }
 
-h1 {
+#flex_top {
+	/* Make this a vertical flex-box container */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start; /* Vertically anchor contents to top */
+	align-items: space-between; /* Horizontally space contents apart */
+
+	padding: 20px;
+	gap: 20px;
+}
+
+#flex_header {
+	/* Make this a horizontal flex-box container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between; /* Horizontally space contents apart */
+	align-items: flex-start; /* Vertically center contents */
+	
+}
+
+#recipe_title {
 	text-align: center;
+	vertical-align: top;
 	color: #6e98c2;
 }
 
@@ -21,23 +43,28 @@ a {
 	text-decoration: none;
 }
 
-
-div.div_recipe {	
-	/* Center the table on the page */
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
+#flex_recipe {
+	/* Make this a horizontal flex-box container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between; /* Vertically space contents apart */
+	align-items: space-between; /* Horizontally space contents apart */
 	
-	/* Set line spacing to 1.5 */
-	line-height: 1.5;
-	
-	padding: 15px;
-	vertical-align: top;
+	padding: 20px;
+	gap: 20px; /* Create a small gap between all of the recipe cards */
 }
 
+#left_column {
+}
 
-td {
-	vertical-align: top;
+img.img_recipe {
+	width: 300px;
+	height: auto;
+	padding-right: 25px;
+	padding-top: 25px;
+}
+
+#right_column {
 }
 
 ul {
@@ -47,4 +74,15 @@ ul {
 li {
 	font-family: Verdana, sans-serif;
 	font-size: 0.875em; /* 14px */
+}
+
+#flex_footer {
+	/* Make this a horizontal flex-box container */
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center; /* Vertically center contents */
+	
+	padding: 20px;
+	gap: 20px; /* Create a small gap between all of the recipe cards */
 }

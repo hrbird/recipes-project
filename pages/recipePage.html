@@ -18,44 +18,48 @@ The individual recipe's title, image, ingredients, and directions are loaded usi
 	<!-- Load universal script that all recipe pages share. This script has functions to populate the ingredients and directions. -->
 	<script src="../scripts/recipeScript.js"></script>
 	
-	<!-- Local script for recipe-specific data -->
-	<script>
-		// Variables specific to this recipe...
-		// This is the string used in recipeScript to fetch the ingredients, directions, and image name.
-		var myRecipeCode = "frankfurter";
-		
-	</script>
 	
 </head>
 
 <body onload="populatePage()">
 
-	<a href="..\index.html">Home Page</a>
+	<div id="flex_top">
 	
-	<h1 id="h_recipeName"></h1>
+		<div id="flex_header">
+			<a href="..\index.html">Home Page</a>
+			X
+		</div>
 	
-	<div class="div_recipe">
+		<h1 id="recipe_title"></h1>
+		
+		<div id="flex_recipe">
 	
-	<table class="table_recipe">
-		<tr>
-			
-			<td>
+			<div id="left_column">
 				<img id="img_recipe" class="img_recipe">
-			</td>
+			</div>
+		
+			<div id="right_column">
 			
-			<td>
-				<h3>Ingredients:</h3>
-				<ul id="ul_ingredients"></ul>
+				<div id="ingredients">
+					<h3>Ingredients:</h3>
+					<ul id="ul_ingredients"></ul>
+				</div>
 				
-				<h3>Directions:</h3>
-				<ol id="ol_directions"></ol>
-				
-			</td>
-			
-		</tr>
+				<div id="directions">
+					<h3>Directions:</h3>
+					<ol id="ol_directions"></ol>
+				</div>
+			</div>
+		
+		</div>
+		
 	
-	</table>
+	</div>
+		
 	
+	
+	<div id="flex_footer">
+		Footer
 	</div>
 
 </body>

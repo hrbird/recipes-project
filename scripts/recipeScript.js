@@ -1,4 +1,4 @@
-// Create an array of recipe codes, which must also be the file names of their html pages and jpg images.
+// Create a global array of recipe codes, which must also be the file names of their jpg images.
 var recipeCodes = [
 	"ham_bananas",
 	"monterey_salad",
@@ -16,6 +16,7 @@ var recipeCodes = [
 // GETTERS
 // Get recipe data to show on page.
 // ========================================
+
 
 // Function to get recipe code parameter from page URL.
 function getRecipeCodeFromURLParameter() {
@@ -352,10 +353,34 @@ function getRecipeName(recipeCode) {
 }
 
 
+// Function to get the image file source for a specific recipe.
+function getImageSourceForRecipePage(recipeCode) {
+	if (recipeCodes.includes(recipeCode)) {
+		return "../images/" + recipeCode + ".jpg";
+		
+	} else {
+		console.log("The recipeCode " + recipeCode + " was not found in the recipeCodes array.");
+		return "";
+	}
+}
+
+// Function to get the image file source for a specific recipe for the index page.
+function getImageSourceForIndexPage(recipeCode) {
+	if (recipeCodes.includes(recipeCode)) {
+		return "./images/" + recipeCode + ".jpg";
+		
+	} else {
+		console.log("The recipeCode " + recipeCode + " was not found in the recipeCodes array.");
+		return "";
+	}
+}
+
+
 // ========================================
 // SETTERS: RECIPE PAGE
-// Modify the HTML on recipe pages.
+// Modify the HTML on the individual recipe page.
 // ========================================
+
 
 // Function to fill the unordered list of ingredients on the recipe page with the ingredients stored in the myIngredients array. 
 function populateIngredients(ingredients) {
@@ -381,7 +406,7 @@ function populateDirections(directions) {
 
 // Function to load the recipe name in the page title and header.
 function populateRecipeName(recipeName) {
-	var h = document.getElementById("h_recipeName");
+	var h = document.getElementById("recipe_title");
 	h.innerHTML = recipeName + " Recipe";
 	
 	document.title = recipeName;
@@ -391,7 +416,7 @@ function populateRecipeName(recipeName) {
 function populateRecipeImage(recipeName, recipeCode) {
 	var i = document.getElementById("img_recipe");
 	
-	i.src = "../images/" + recipeCode + ".jpg";
+	i.src = getImageSourceForRecipePage(recipeCode);
 	i.alt = recipeName;
 	
 }
@@ -399,7 +424,9 @@ function populateRecipeImage(recipeName, recipeCode) {
 
 // Function to fill the page with data. Called on page load.
 function populatePage() {
-	getRecipeCodeFromURLParameter();
+	
+	// Get the recipe code from the URL parameter "?recipe=".
+	var myRecipeCode = getRecipeCodeFromURLParameter();
 	
 	populateIngredients(getIngredients(myRecipeCode));
 	populateDirections(getDirections(myRecipeCode));
@@ -437,7 +464,7 @@ function createRecipeCard(recipeCode) {
 	
 	// Create an image for the recipe thumbnail.
 	var img = document.createElement("IMG");
-	img.src = "./images/" + recipeCode + ".jpg";
+	img.src = getImageSourceForIndexPage(recipeCode);
 	img.alt = n;
 	
 	// Add the recipe image to the link.
