@@ -427,11 +427,12 @@ function populatePage() {
 	
 	// Get the recipe code from the URL parameter "?recipe=".
 	var myRecipeCode = getRecipeCodeFromURLParameter();
+	var recipeName = getRecipeName(myRecipeCode);
 	
 	populateIngredients(getIngredients(myRecipeCode));
 	populateDirections(getDirections(myRecipeCode));
-	populateRecipeName(getRecipeName(myRecipeCode));
-	populateRecipeImage(getRecipeName(myRecipeCode), myRecipeCode);
+	populateRecipeName(recipeName);
+	populateRecipeImage(recipeName, myRecipeCode);
 }
 
 
