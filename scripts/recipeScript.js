@@ -307,12 +307,13 @@ function getRecipeName(recipeCode) {
 	return r;
 }
 
+
 // ========================================
-// SETTERS
+// SETTERS: RECIPE PAGE
 // Modify the HTML on recipe pages.
 // ========================================
 
-// Function to fill the unordered list of ingredients on the page with the ingredients stored in the myIngredients array. 
+// Function to fill the unordered list of ingredients on the recipe page with the ingredients stored in the myIngredients array. 
 function populateIngredients(ingredients) {
 	var ul = document.getElementById("ul_ingredients");
 	
@@ -323,7 +324,7 @@ function populateIngredients(ingredients) {
 	}
 }
 
-// Function to fill the ordered list of directions on the page with the directions stored in the myDirections array. 
+// Function to fill the ordered list of directions on the recipe page with the directions stored in the myDirections array. 
 function populateDirections(directions) {
 	var ol = document.getElementById("ol_directions");
 	
@@ -362,7 +363,90 @@ function populatePage() {
 
 
 // ========================================
-// SETTERS
+// SETTERS: INDEX PAGE
+// Modify the HTML on the index page.
+// ========================================
+
+// Function to create a div with the "flex-card" class and fill it with a recipe name, image, and link to its recipe page. Receives a string for the recipe code.
+function createRecipeCard(recipeCode) {
+	
+	// Create a new "flex_card" div.
+	var d = document.createElement("DIV");
+	d.className = "flex_card";
+	
+	// Get recipe name.
+	var n = getRecipeName(recipeCode);
+	
+	// Create a title for the recipe that links to its page.
+	var t = document.createElement("A");
+	t.href = "./pages/" + recipeCode + ".html";
+	t.innerHTML = n;
+	
+	// Create a link for the recipe image.
+	var a = document.createElement("A");
+	a.href = "./pages/" + recipeCode + ".html";
+	
+	// Create an image for the recipe thumbnail.
+	var img = document.createElement("IMG");
+	img.src = "./images/" + recipeCode + ".jpg";
+	img.alt = n;
+	
+	// Add the recipe image to the link.
+	a.appendChild(img);
+	
+	//console.log("Creating recipe card for the recipeCode " + recipeCode + "... page: " + t.href + ", image: " + img.src);
+	
+	// Add linked title and image to the div.
+	d.appendChild(t);
+	d.appendChild(a);
+	
+	
+	return d;
+}
+
+// Function to add recipe cards to the main "flex_recipes" div.
+function createRecipes() {
+	
+	var mainDiv = document.getElementById("flex_recipes");
+	
+	// Create an array of recipe codes, which must also be the file names of their html pages and jpg images.
+	var recipeCodes = [
+		"ham_bananas",
+		"monterey_salad",
+		"frankfurter",
+		"ham_aspic",
+		"jellied_tomato",
+		"frosted_melon",
+		"meatloaf_roll",
+		"spinach_egg",
+		"spam_cakes"
+	]
+	
+	console.log("Creating " + recipeCodes.length + " recipes...");
+	
+	// Loop through array. Create recipe cards for each recipe and add it to the main div.
+	for (var r = 0; r < recipeCodes.length; r++) {
+		
+		console.log("Creating a recipe card #" + r + " for " + recipeCodes[r]);
+		
+		// Create a div for the recipe.
+		var newRecipe = createRecipeCard(recipeCodes[r]);
+		mainDiv.appendChild(newRecipe);
+	}
+}
+
+
+// Function to fill the page with data. Called on page load.
+function populateIndexPage() {
+	createRecipes();
+}
+
+
+
+
+// ========================================
+// OLD -- REPLACED THIS TABLE WITH A FLEX CONTAINER DIV.
+// SETTERS: INDEX PAGE
 // Modify the HTML on the index page.
 // ========================================
 

@@ -1,17 +1,72 @@
 
 body {
 	font-family: "Courier New", "Monaco", monospace;
+	
+	margin: 0;
+	min-height: 100vh;
+	
+	/* Make this a vertical flex-box container */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Vertically space contents apart */
+	align-items: space-between; /* Horizontally space contents apart */
+}
+
+
+h1 {
+	text-align: center;
+	color: #6e98c2;
+}
+
+
+#flex_recipes {
+	
+	/* Make this a horizontal flex-box container */
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between; /* Vertically space contents apart */
+	align-items: space-between; /* Horizontally space contents apart */
+	flex-wrap: wrap; /* Let cards dynamically wrap to form additional rows */
+	
+	padding: 20px;
+	gap: 20px; /* Create a small gap between all of the recipe cards */
+}
+
+
+.flex_card {
+	border: 1px solid #6e98c2;
+	box-shadow: 2px 4px 16px rgba(0,0,0,.06);
+	border-radius: 4px;
+	width: 300px;
+	max-width: 500px;
+	height: 450px;
+	padding: 16px;
+	
+	/* Make this a vertical flex-box container */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start; /* Vertically anchor contents to top */
+	align-items: center; /* Horizontally center contents */
+	gap: 20px;
+	
+	flex: 1 0 auto; /* Set flex for the card to horizontally grow dynamically */
+	
+	background-color: white;
+	font-weight: 500;
+	font-weight: bold;
+	font-size: 1.15em;
+}
+
+
+.flex_card:hover {
+	background-color: #e0e2e4;
 }
 
 
 img {
 	max-height: 400px;
 	width: auto;
-}
-
-h1 {
-	text-align: center;
-	color: #6e98c2;
+	cursor: pointer;
 }
 
 a {
