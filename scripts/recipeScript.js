@@ -1,8 +1,52 @@
+// Create an array of recipe codes, which must also be the file names of their html pages and jpg images.
+var recipeCodes = [
+	"ham_bananas",
+	"monterey_salad",
+	"frankfurter",
+	"ham_aspic",
+	"jellied_tomato",
+	"frosted_melon",
+	"meatloaf_roll",
+	"spinach_egg",
+	"spam_cakes"
+]
+
+
 // ========================================
 // GETTERS
 // Get recipe data to show on page.
 // ========================================
 
+// Function to get recipe code parameter from page URL.
+function getRecipeCodeFromURLParameter() {
+	
+	const queryString = window.location.search;
+	console.log("URL query string: " + queryString);
+	
+	const urlParams = new URLSearchParams(queryString);
+	console.log("URL parameters: " + urlParams);
+	
+	// Set default recipeCode value to the default option.
+	var rCode = "ham_bananas";
+	
+	if(urlParams.has('recipe')) {
+		var rParam = urlParams.get('recipe');
+		
+		if (recipeCodes.includes(rParam)) {
+			console.log("Recipe code: " + rParam);
+			rCode = rParam;
+			
+		} else {
+			console.log("The parameter value " + rParam + " was not found in the recipeCodes array. Showing default instead...");
+		}
+		
+	} else {
+		console.log ("No recipe code was sent via URL parameter. Showing default instead...")
+	}
+	
+	console.log("Returning recipe code: " + rCode);
+	return rCode;
+}
 
 // Function to get the array of ingredients for a specific recipe.
 function getIngredients(recipeCode) {
@@ -355,6 +399,8 @@ function populateRecipeImage(recipeName, recipeCode) {
 
 // Function to fill the page with data. Called on page load.
 function populatePage() {
+	getRecipeCodeFromURLParameter();
+	
 	populateIngredients(getIngredients(myRecipeCode));
 	populateDirections(getDirections(myRecipeCode));
 	populateRecipeName(getRecipeName(myRecipeCode));
@@ -377,14 +423,17 @@ function createRecipeCard(recipeCode) {
 	// Get recipe name.
 	var n = getRecipeName(recipeCode);
 	
+	// Get the link to the recipe page, passing the recipe code via a URL parameter.
+	var l = "./pages/recipePage.html?recipe=" + recipeCode;
+	
 	// Create a title for the recipe that links to its page.
 	var t = document.createElement("A");
-	t.href = "./pages/" + recipeCode + ".html";
+	t.href = l;
 	t.innerHTML = n;
 	
 	// Create a link for the recipe image.
 	var a = document.createElement("A");
-	a.href = "./pages/" + recipeCode + ".html";
+	a.href = l;
 	
 	// Create an image for the recipe thumbnail.
 	var img = document.createElement("IMG");
@@ -394,7 +443,7 @@ function createRecipeCard(recipeCode) {
 	// Add the recipe image to the link.
 	a.appendChild(img);
 	
-	//console.log("Creating recipe card for the recipeCode " + recipeCode + "... page: " + t.href + ", image: " + img.src);
+	//console.log("Creating recipe card for the recipeCode " + recipeCode + "... page: " + l + ", image: " + img.src);
 	
 	// Add linked title and image to the div.
 	d.appendChild(t);
@@ -408,19 +457,6 @@ function createRecipeCard(recipeCode) {
 function createRecipes() {
 	
 	var mainDiv = document.getElementById("flex_recipes");
-	
-	// Create an array of recipe codes, which must also be the file names of their html pages and jpg images.
-	var recipeCodes = [
-		"ham_bananas",
-		"monterey_salad",
-		"frankfurter",
-		"ham_aspic",
-		"jellied_tomato",
-		"frosted_melon",
-		"meatloaf_roll",
-		"spinach_egg",
-		"spam_cakes"
-	]
 	
 	console.log("Creating " + recipeCodes.length + " recipes...");
 	
@@ -441,118 +477,5 @@ function populateIndexPage() {
 	createRecipes();
 }
 
-
-
-
-// ========================================
-// OLD -- REPLACED THIS TABLE WITH A FLEX CONTAINER DIV.
-// SETTERS: INDEX PAGE
-// Modify the HTML on the index page.
-// ========================================
-
-
-// Function to create and fill a cell of the recipes table with a recipe link and image.
-function createRecipeCell(recipeCode) {
-	// Get recipe name.
-	var n = getRecipeName(recipeCode);
-	
-	// Create a title for the recipe that links to its page.
-	var t = document.createElement("A");
-	t.href = "./pages/" + recipeCode + ".html";
-	t.innerHTML = n;
-	
-	// Create an image for the recipe thumbnail.
-	var img = document.createElement("IMG");
-	img.src = "./images/" + recipeCode + ".jpg";
-	img.alt = n;
-	
-	// Create a link for the recipe image.
-	var a = document.createElement("A");
-	a.href = "./pages/" + recipeCode + ".html";
-	
-	// Add the recipe image to the link.
-	a.appendChild(img);
-	
-	// Create a new TD cell.
-	var td = document.createElement("TD");
-	td.class = "td_index";
-	
-	// Add linked title and image to the cell.
-	td.appendChild(t);
-	td.appendChild(document.createElement("BR"));
-	td.appendChild(document.createElement("BR"));
-	td.appendChild(a);
-	
-	return td;
-}
-
-// Function to create and fill the recipes table.
-function createTable() {
-	
-	var mainTable = document.getElementById("table_index");
-	
-	// Create an array of recipe codes, which must also be the file names of their html pages and jpg images.
-	var recipeCodes = [
-		"ham_bananas",
-		"monterey_salad",
-		"frankfurter",
-		"ham_aspic",
-		"jellied_tomato",
-		"frosted_melon",
-		"meatloaf_roll",
-		"spinach_egg",
-		"spam_cakes"
-	]
-	
-	var r = 0;
-	
-	// Get length of array and check if there are any recipes.
-	var numRecipes = recipeCodes.length;
-	if (numRecipes > 0) {
-		
-		// Figure out how many rows to create.
-		const numRecipesPerRow = 3;
-		var numRows = Math.ceil(numRecipes / numRecipesPerRow);
-		console.log("There are " + numRecipes + " recipes. Creating a table with " + numRows + " rows of up to " + numRecipesPerRow + " recipes...");
-		
-		// Create each row of recipes and add it to the table.
-		for (var x = 0; x < numRows; x++) {
-			
-			// Create a row.
-			var newRow = document.createElement("TR");
-			
-			// Add three recipes to the row.
-			for (var y = 0; y < numRecipesPerRow; y++) {
-				
-				
-				// Double-check that there is a recipe that can be added.
-				if (r < numRecipes) {
-					
-					console.log("Creating table cell for recipeCode " + recipeCodes[r] + " at index " + r + ". Table row " + x + ", table cell " + y);
-					
-					// Create a cell of the recipe with a recipe link and image.
-					var newRecipeCell = createRecipeCell(recipeCodes[r]);
-					
-					newRow.appendChild(newRecipeCell);
-				} else {
-					
-					console.log("Cannot create a table cell for index " + r);
-				}
-				
-				r++;
-			}
-			
-			mainTable.appendChild(newRow);
-			
-		}
-		
-	}
-}
-
-
-// Function to fill the page with data. Called on page load.
-function populateIndex() {
-	createTable();
-}
 
 
