@@ -1,0 +1,46 @@
+
+body {
+	font-family: "Courier New", "Monaco", monospace;
+}
+
+
+img {
+	max-height: 400px;
+	width: auto;
+}
+
+h1 {
+	text-align: center;
+	color: #6e98c2;
+}
+
+a {
+	/* Remove underlines from links */
+	text-decoration: none;
+}
+
+table.table_index {
+	text-align: center;
+	
+	/* Center the table on the page */
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	
+	/* Single black border */
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+
+td {
+	border: 1px solid black;
+	font-weight: bold;
+	font-size: 1.15em;
+	padding: 25px;
+	vertical-align: top;
+}
+
+td:hover {
+	background-color: #e0e2e4;
+}
